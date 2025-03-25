@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Drum Kit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Virtual Drum Kit</h1>
+    
+    <select id="drum-kit-selector">
+        <option value="default">Default Kit</option>
+        <option value="electronic">Electronic Kit</option>
+        <option value="jazz">Jazz Kit</option>
+    </select>
+    
+    <div class="controls">
+        <button id="toggle-metronome">Metronome</button>
+        <button id="play-along">Play-Along Mode</button>
+    </div>
+    
+    <div class="drum-kit" id="drum-kit"></div>
+    
+    <canvas id="visualizer"></canvas>
+    
+    <script src="script.js"></script>
+</body>
+</html>
