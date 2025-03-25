@@ -21,20 +21,20 @@ The **Virtual Drum Kit** is an interactive web-based application that allows use
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/virtual-drum-kit.git
+   git clone https://github.com/Symba-Drumz/Phase-1-Project..git
    ```
 
 2. **Navigate to the project folder:**
 
    ```bash
-   cd virtual-drum-kit
+   cd Phase-1-Project.
    ```
 
 3. **Open `index.html` in a browser** to start playing.
 
 ## Live Demo
 
-[Click here to view the live project](https://yourusername.github.io/virtual-drum-kit/)
+[Click here to view the live project](https://github.com/Symba-Drumz/Phase-1-Project..git)
 
 ## Technologies Used
 
