@@ -17,11 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentStep = 0;
     let isPlaying = false;
     let isMuted = false;
+    let activePreset = null;
     let interval;
     
     function savePreset() {
         const presetName = presetNameInput.value.trim();
         if (!presetName) return;
+        
+        const existingIndex = presets.findIndex(p => p.name === presetName);
         const preset = { 
             name: presetName, 
             volume: masterVolume.value, 
@@ -31,7 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
             effect: effectSelector.value,
             pattern: Array.from(gridCells).map(cell => cell.classList.contains("active"))
         };
-        presets.push(preset);
+        
+        if (existingIndex !== -1) {
+            if (!confirm(`Preset \"${presetName}\" already exists. Overwrite?`)) return;
+            presets[existingIndex] = preset;
+        } else {
+            presets.push(preset);
+        }
+        
         localStorage.setItem("drumPresets", JSON.stringify(presets));
         updatePresetList();
     }
@@ -46,12 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
         gridCells.forEach((cell, i) => {
             cell.classList.toggle("active", preset.pattern[i]);
         });
+        activePreset = index;
+        highlightActivePreset();
+    }
+    
+    function highlightActivePreset() {
+        document.querySelectorAll(".preset-item").forEach((item, i) => {
+            item.classList.toggle("active-preset", i === activePreset);
+        });
     }
     
     window.deletePreset = function(index) {
+        if (!confirm("Are you sure you want to delete this preset?")) return;
         presets.splice(index, 1);
         localStorage.setItem("drumPresets", JSON.stringify(presets));
         updatePresetList();
+        activePreset = null;
+        highlightActivePreset();
     };
     
     function updatePresetList() {
@@ -59,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         presets.forEach((preset, index) => {
             const div = document.createElement("div");
             div.classList.add("preset-item");
+            if (index === activePreset) div.classList.add("active-preset");
             div.innerHTML = `
                 <span>${preset.name}</span>
                 <button onclick="loadPreset(${index})">Load</button>
@@ -109,10 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
         muteButton.textContent = isMuted ? "Unmute" : "Mute";
         
         if (isMuted) {
-            masterVolume.dataset.previousVolume = masterVolume.value; // Store current volume
-            masterVolume.value = 0; // Mute
+            masterVolume.dataset.previousVolume = masterVolume.value;
+            masterVolume.value = 0;
         } else {
-            masterVolume.value = masterVolume.dataset.previousVolume || 1; // Restore volume
+            masterVolume.value = masterVolume.dataset.previousVolume || 1;
         }
     }
     

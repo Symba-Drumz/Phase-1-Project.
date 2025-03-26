@@ -99,3 +99,24 @@ button:hover {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+#preset-list {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+    min-height: 50px;
+}
+
+.preset-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #555;
+}
+
+.preset-item button {
+    margin-left: 5px;
+}
+
