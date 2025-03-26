@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetList = document.getElementById("preset-list");
     const kitSelector = document.getElementById("kit-selector");
     const effectSelector = document.getElementById("effect-selector");
-    const gridCells = document.querySelectorAll(".grid div");
+    const gridContainer = document.querySelector(".grid");
     const visualizer = document.getElementById("visualizer");
 
     let presets = JSON.parse(localStorage.getItem("drumPresets")) || [];
@@ -19,7 +19,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let isMuted = false;
     let activePreset = null;
     let interval;
-    
+
+    function generateGrid() {
+        gridContainer.innerHTML = "";
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 16; col++) {
+                const cell = document.createElement("div");
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                cell.classList.add("grid-cell");
+                gridContainer.appendChild(cell);
+
+                cell.addEventListener("click", () => {
+                    cell.classList.toggle("active");
+                });
+            }
+        }
+    }
+
     function savePreset() {
         const presetName = presetNameInput.value.trim();
         if (!presetName) return;
@@ -32,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             swing: swing.value,
             kit: kitSelector.value,
             effect: effectSelector.value,
-            pattern: Array.from(gridCells).map(cell => cell.classList.contains("active"))
+            pattern: Array.from(gridContainer.children).map(cell => cell.classList.contains("active"))
         };
         
         if (existingIndex !== -1) {
@@ -53,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         swing.value = preset.swing;
         kitSelector.value = preset.kit;
         effectSelector.value = preset.effect;
-        gridCells.forEach((cell, i) => {
+        gridContainer.querySelectorAll(".grid-cell").forEach((cell, i) => {
             cell.classList.toggle("active", preset.pattern[i]);
         });
         activePreset = index;
@@ -92,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function stepSequencer() {
         const step = currentStep % 16;
-        gridCells.forEach((cell, index) => {
+        gridContainer.querySelectorAll(".grid-cell").forEach((cell, index) => {
             cell.classList.remove("current-step");
             if (index % 16 === step) {
                 cell.classList.add("current-step");
@@ -137,12 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
             masterVolume.value = masterVolume.dataset.previousVolume || 1;
         }
     }
-    
+
     playButton.addEventListener("click", () => {
         isPlaying ? stopPlayback() : startPlayback();
     });
     
     muteButton.addEventListener("click", toggleMute);
     savePresetButton.addEventListener("click", savePreset);
+    
+    generateGrid();
     updatePresetList();
 });
