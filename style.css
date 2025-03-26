@@ -42,9 +42,21 @@ header {
 .labels {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
     text-align: right;
     color: cyan;
+    font-size: 1rem;
+    padding-right: 10px;
+    height: 320px;
+}
+
+.labels div {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+    text-transform: lowercase;
 }
 
 .grid {
@@ -73,19 +85,31 @@ header {
 .faders {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: space-between;
+    height: 320px;
 }
 
 .fader-group {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    height: 40px;
 }
 
 .fader-group input[type="range"] {
     width: 80px;
     background: cyan;
     outline: none;
+}
+
+.fader-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: cyan;
+    margin-top: 5px;
+    padding-left: 120px;
+    padding-right: 10px;
 }
 
 #visualizer {
