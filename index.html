@@ -12,7 +12,6 @@
         <p>by Zach Alfa</p>
     </header>
 
-    <!-- Controls for Volume, Tempo, and Swing -->
     <div class="controls">
         <label>Master Volume</label>
         <input type="range" id="master-volume" min="0" max="100" value="50">
@@ -22,7 +21,6 @@
         <input type="range" id="swing" min="0" max="100" value="0">
     </div>
 
-    <!-- Kit and Effect Selection -->
     <div class="options">
         <select id="kit-selector">
             <option>Kit 1</option>
@@ -35,83 +33,78 @@
         </select>
     </div>
 
-    <!-- Drum Controls -->
-    <div class="drum-controls">
-        <div>
-            <label for="crash-volume">Crash Volume</label>
-            <input type="range" id="crash-volume" min="0" max="1" step="0.01">
-            <label for="crash-pitch">Crash Pitch</label>
-            <input type="range" id="crash-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="hightom-volume">High Tom Volume</label>
-            <input type="range" id="hightom-volume" min="0" max="1" step="0.01">
-            <label for="hightom-pitch">High Tom Pitch</label>
-            <input type="range" id="hightom-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="mediumtom-volume">Medium Tom Volume</label>
-            <input type="range" id="mediumtom-volume" min="0" max="1" step="0.01">
-            <label for="mediumtom-pitch">Medium Tom Pitch</label>
-            <input type="range" id="mediumtom-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="lowtom-volume">Low Tom Volume</label>
-            <input type="range" id="lowtom-volume" min="0" max="1" step="0.01">
-            <label for="lowtom-pitch">Low Tom Pitch</label>
-            <input type="range" id="lowtom-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="openhihat-volume">Open Hi-Hat Volume</label>
-            <input type="range" id="openhihat-volume" min="0" max="1" step="0.01">
-            <label for="openhihat-pitch">Open Hi-Hat Pitch</label>
-            <input type="range" id="openhihat-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="closedhihat-volume">Closed Hi-Hat Volume</label>
-            <input type="range" id="closedhihat-volume" min="0" max="1" step="0.01">
-            <label for="closedhihat-pitch">Closed Hi-Hat Pitch</label>
-            <input type="range" id="closedhihat-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="snare-volume">Snare Volume</label>
-            <input type="range" id="snare-volume" min="0" max="1" step="0.01">
-            <label for="snare-pitch">Snare Pitch</label>
-            <input type="range" id="snare-pitch" min="0.5" max="2" step="0.01">
-        </div>
-        <div>
-            <label for="kick-volume">Kick Volume</label>
-            <input type="range" id="kick-volume" min="0" max="1" step="0.01">
-            <label for="kick-pitch">Kick Pitch</label>
-            <input type="range" id="kick-pitch" min="0.5" max="2" step="0.01">
-        </div>
-    </div>
-
-    <!-- Drum Grid (Pattern Sequencer) -->
     <div class="sequencer">
-        <div class="grid">
-            <!-- Dynamic grid will be generated in JS -->
+        <div class="grid-container">
+            <div class="labels">
+                <span>Crash</span>
+                <span>High Tom</span>
+                <span>Medium Tom</span>
+                <span>Low Tom</span>
+                <span>Open Hi-Hat</span>
+                <span>Closed Hi-Hat</span>
+                <span>Snare</span>
+                <span>Kick</span>
+            </div>
+            <div class="grid">
+                <!-- Dynamic grid will be generated in JS -->
+            </div>
+            <div class="faders">
+                <div class="fader-group">
+                    <label>Volume</label>
+                    <label>Pitch</label>
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="crash-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="crash-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="hightom-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="hightom-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="mediumtom-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="mediumtom-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="lowtom-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="lowtom-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="openhihat-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="openhihat-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="closedhihat-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="closedhihat-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="snare-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="snare-pitch" min="0.5" max="2" step="0.01">
+                </div>
+                <div class="fader-group">
+                    <input type="range" id="kick-volume" min="0" max="1" step="0.01">
+                    <input type="range" id="kick-pitch" min="0.5" max="2" step="0.01">
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Playback Controls -->
     <div class="playback-controls">
         <button id="play">Play</button>
         <button id="mute">Mute</button>
         <button id="clear">Clear</button>
     </div>
 
-    <!-- Preset Management -->
     <div class="preset-controls">
         <input type="text" id="preset-name" placeholder="Enter preset name">
         <button id="save-preset">Save Preset</button>
     </div>
     <div id="preset-list"></div>
 
-    <!-- Visualizer -->
     <canvas id="visualizer"></canvas>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 
