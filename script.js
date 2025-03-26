@@ -107,6 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function toggleMute() {
         isMuted = !isMuted;
         muteButton.textContent = isMuted ? "Unmute" : "Mute";
+        
+        if (isMuted) {
+            masterVolume.dataset.previousVolume = masterVolume.value; // Store current volume
+            masterVolume.value = 0; // Mute
+        } else {
+            masterVolume.value = masterVolume.dataset.previousVolume || 1; // Restore volume
+        }
     }
     
     playButton.addEventListener("click", () => {
