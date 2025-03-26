@@ -101,15 +101,36 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
+    function deletePreset(index) {
+        presets.splice(index, 1);
+        localStorage.setItem("drumPresets", JSON.stringify(presets));
+        updatePresetList();
+    }
+    
     function updatePresetList() {
         presetList.innerHTML = "";
-        presets.forEach((_, index) => {
+        presets.forEach((preset, index) => {
+            const presetContainer = document.createElement("div");
+            presetContainer.classList.add("preset-item");
+    
             const btn = document.createElement("button");
-            btn.textContent = `Preset ${index + 1}`;
+            btn.textContent = preset.name;
             btn.addEventListener("click", () => loadPreset(index));
-            presetList.appendChild(btn);
+    
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "X";
+            deleteBtn.classList.add("delete-preset");
+            deleteBtn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                deletePreset(index);
+            });
+    
+            presetContainer.appendChild(btn);
+            presetContainer.appendChild(deleteBtn);
+            presetList.appendChild(presetContainer);
         });
     }
+    
     
     savePresetButton.addEventListener("click", savePreset);
     updatePresetList();
