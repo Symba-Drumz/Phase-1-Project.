@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const audio = new Audio(`sounds/${sound}.wav`);
         audio.volume = volumeControl.value;
         audio.play();
+        animateVisualizer();
     }
     
     gridCells.forEach((cell, index) => {
@@ -34,18 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         currentStep++;
+        requestAnimationFrame(() => setTimeout(stepSequencer, 60000 / tempoControl.value / 4));
     }
     
     function startPlayback() {
         if (!isPlaying) {
             isPlaying = true;
-            interval = setInterval(stepSequencer, 60000 / tempoControl.value / 4);
+            stepSequencer();
         }
     }
     
     function stopPlayback() {
         isPlaying = false;
-        clearInterval(interval);
     }
     
     playButton.addEventListener("click", () => {
@@ -60,16 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
     tempoControl.addEventListener("input", () => {
         if (isPlaying) {
-            clearInterval(interval);
+            stopPlayback();
             startPlayback();
         }
     });
     
-    // Visualizer Effect
+    
     function animateVisualizer() {
         visualizer.style.transform = `scale(${Math.random() * 0.5 + 1})`;
-        requestAnimationFrame(animateVisualizer);
+        visualizer.style.opacity = Math.random() * 0.5 + 0.5;
     }
-    animateVisualizer();
-    
 });
