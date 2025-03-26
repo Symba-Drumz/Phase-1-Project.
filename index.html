@@ -1,49 +1,49 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Drum Kit</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Drum Machine</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Virtual Drum Machine</h1>
-        <p>Program and play beats with a step sequencer</p>
+        <h1>drum machine</h1>
+        <p>by Zach Alfa</p>
     </header>
     
-    <section class="controls">
-        <label for="volume">Master Volume</label>
-        <input type="range" id="volume" min="0" max="100" value="50">
-        
-        <label for="tempo">Tempo (BPM)</label>
-        <input type="number" id="tempo" min="40" max="200" value="120">
-        
-        <label for="kit">Drum Kit</label>
-        <select id="kit">
+    <div class="controls">
+        <label>Master Volume</label>
+        <input type="range" id="master-volume" min="0" max="100" value="50">
+        <label>Tempo</label>
+        <input type="number" id="tempo" value="120"> bpm
+        <label>Swing</label>
+        <input type="range" id="swing" min="0" max="100" value="0">
+    </div>
+    
+    <div class="options">
+        <select id="kit-selector">
             <option>Kit 1</option>
             <option>Kit 2</option>
         </select>
-        
-        <label for="effect">Effects</label>
-        <select id="effect">
-            <option>None</option>
+        <select id="effect-selector">
+            <option>No Effect</option>
             <option>Reverb</option>
             <option>Delay</option>
         </select>
-    </section>
+    </div>
     
-    <section class="sequencer">
+    <div class="sequencer">
         <div class="grid">
-            <!-- Drum Grid generated via JavaScript -->
+            <!-- Dynamic grid will be generated here -->
         </div>
-    </section>
+    </div>
     
-    <section class="playback-controls">
+    <div class="playback-controls">
         <button id="play">Play</button>
         <button id="stop">Stop</button>
-        <button id="reset">Reset</button>
-    </section>
+        <button id="clear">Clear</button>
+    </div>
     
     <canvas id="visualizer"></canvas>
     
