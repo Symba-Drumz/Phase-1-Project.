@@ -1,125 +1,94 @@
+
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    font-family: Arial, sans-serif;
+    background: #222;
     color: white;
     text-align: center;
     margin: 0;
     padding: 0;
-    animation: fadeIn 1s ease-in;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+header {
+    background: #333;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-    font-size: 3rem;
-    margin-top: 20px;
-    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
-    animation: slideIn 1s ease-out;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-#drum-kit-selector {
-    padding: 10px;
-    font-size: 1.2rem;
-    margin: 20px;
-    border-radius: 5px;
-    border: none;
-    background: #e94560;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-}
-
-#drum-kit-selector:hover {
-    background: #ff6f91;
-    transform: scale(1.05);
+    margin: 0;
+    font-size: 2rem;
 }
 
 .controls {
-    margin: 20px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
+    padding: 15px;
+    background: #444;
+    border-bottom: 2px solid #666;
+}
+
+select, input[type="range"], input[type="number"] {
+    padding: 5px;
+    background: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+.sequencer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(16, 40px);
+    grid-template-rows: repeat(8, 40px);
+    gap: 5px;
+}
+
+.grid div {
+    width: 40px;
+    height: 40px;
+    background: #666;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.grid div.active {
+    background: #00ffcc;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+
+.playback-controls {
+    margin-top: 20px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1rem;
+    background: #00ffcc;
+    color: black;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s, transform 0.2s;
+    transition: 0.2s;
 }
 
 button:hover {
-    transform: scale(1.1);
+    background: #008866;
+    box-shadow: 0 0 10px #00ffcc;
 }
 
-#toggle-metronome {
-    background: #00adb5;
-    color: white;
-}
-
-#toggle-metronome:hover {
-    background: #00f2f2;
-}
-
-#play-along {
-    background: #f08a5d;
-    color: white;
-}
-
-#play-along:hover {
-    background: #ff9e7c;
-}
-
-.drum-kit {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.drum-pad {
-    width: 120px;
-    height: 120px;
-    margin: 10px;
-    border-radius: 15px;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    background: #4a4e69;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: transform 0.1s, background 0.3s;
-    animation: popIn 0.5s ease-in-out;
-}
-
-@keyframes popIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.drum-pad:hover {
-    background: #6a7096;
-}
-
-.drum-pad:active {
-    transform: scale(0.9);
-}
 
 #visualizer {
-    width: 80%;
-    height: 200px;
-    margin: 30px auto;
-    background: black;
-    border-radius: 10px;
+    width: 100%;
+    height: 150px;
+    background: #111;
+    margin-top: 20px;
 }
