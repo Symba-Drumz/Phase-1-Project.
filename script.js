@@ -1,94 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const gridCells = document.querySelectorAll(".grid div");
+    const masterVolume = document.getElementById("master-volume");
+    const tempo = document.getElementById("tempo");
+    const swing = document.getElementById("swing");
     const playButton = document.getElementById("play");
-    const stopButton = document.getElementById("stop");
-    const tempoControl = document.getElementById("tempo");
-    const volumeControl = document.getElementById("volume");
-    const swingControl = document.getElementById("swing");
-    const visualizer = document.getElementById("visualizer");
+    const muteButton = document.getElementById("mute");
+    const clearButton = document.getElementById("clear");
     const savePresetButton = document.getElementById("save-preset");
-    const loadPresetButton = document.getElementById("load-preset");
+    const presetNameInput = document.getElementById("preset-name");
     const presetList = document.getElementById("preset-list");
-    
-    const drumSounds = [
-        "kick", "snare", "closedHihat", "openHihat", "lowTom", "mediumTom", "highTom", "crash"
-    ];
-    
+    const kitSelector = document.getElementById("kit-selector");
+    const effectSelector = document.getElementById("effect-selector");
+    const gridCells = document.querySelectorAll(".grid div");
+    const visualizer = document.getElementById("visualizer");
+
+    let presets = JSON.parse(localStorage.getItem("drumPresets")) || [];
     let currentStep = 0;
     let isPlaying = false;
-    let isMuted = false; // Mute state
+    let isMuted = false;
     let interval;
-    let presets = JSON.parse(localStorage.getItem("drumPresets")) || [];
     
-    function playSound(sound) {
-        if (!isMuted) { // Only play sound if not muted
-            const audio = new Audio(`sounds/${sound}.wav`);
-            audio.volume = volumeControl.value;
-            audio.play();
-            animateVisualizer();
-        }
-    }
-    
-    gridCells.forEach((cell, index) => {
-        cell.addEventListener("click", () => {
-            cell.classList.toggle("active");
-        });
-    });
-    
-    function stepSequencer() {
-        const step = currentStep % 16;
-        gridCells.forEach((cell, index) => {
-            cell.classList.remove("current-step"); // Remove highlight from previous step
-            if (index % 16 === step) {
-                cell.classList.add("current-step"); // Highlight active step
-                if (cell.classList.contains("active")) {
-                    playSound(drumSounds[Math.floor(index / 16)]);
-                }
-            }
-        });
-        currentStep++;
-        requestAnimationFrame(() => setTimeout(stepSequencer, 60000 / tempoControl.value / 4));
-    }
-    
-    function startPlayback() {
-        if (!isPlaying) {
-            isPlaying = true;
-            stepSequencer();
-            playButton.classList.add("playing");
-            playButton.textContent = "Stop";
-        }
-    }
-    
-    function stopPlayback() {
-        isPlaying = false;
-        playButton.classList.remove("playing");
-        playButton.textContent = "Play";
-    }
-    
-    playButton.addEventListener("click", () => {
-        if (isPlaying) {
-            stopPlayback();
-        } else {
-            startPlayback();
-        }
-    });
-    
-    tempoControl.addEventListener("input", () => {
-        if (isPlaying) {
-            stopPlayback();
-            startPlayback();
-        }
-    });
-    
-    // Improved Visualizer Effect
-    function animateVisualizer() {
-        visualizer.style.transform = `scale(${Math.random() * 0.5 + 1.2})`;
-        visualizer.style.opacity = Math.random() * 0.5 + 0.5;
-    }
-    
-    // Preset Saving & Loading
     function savePreset() {
-        const preset = Array.from(gridCells).map(cell => cell.classList.contains("active"));
+        const presetName = presetNameInput.value.trim();
+        if (!presetName) return;
+        const preset = { 
+            name: presetName, 
+            volume: masterVolume.value, 
+            tempo: tempo.value, 
+            swing: swing.value,
+            kit: kitSelector.value,
+            effect: effectSelector.value,
+            pattern: Array.from(gridCells).map(cell => cell.classList.contains("active"))
+        };
         presets.push(preset);
         localStorage.setItem("drumPresets", JSON.stringify(presets));
         updatePresetList();
@@ -96,48 +38,82 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function loadPreset(index) {
         const preset = presets[index];
+        masterVolume.value = preset.volume;
+        tempo.value = preset.tempo;
+        swing.value = preset.swing;
+        kitSelector.value = preset.kit;
+        effectSelector.value = preset.effect;
         gridCells.forEach((cell, i) => {
-            cell.classList.toggle("active", preset[i]);
+            cell.classList.toggle("active", preset.pattern[i]);
         });
     }
     
-    function deletePreset(index) {
+    window.deletePreset = function(index) {
         presets.splice(index, 1);
         localStorage.setItem("drumPresets", JSON.stringify(presets));
         updatePresetList();
-    }
+    };
     
     function updatePresetList() {
         presetList.innerHTML = "";
         presets.forEach((preset, index) => {
-            const presetContainer = document.createElement("div");
-            presetContainer.classList.add("preset-item");
-    
-            const btn = document.createElement("button");
-            btn.textContent = preset.name;
-            btn.addEventListener("click", () => loadPreset(index));
-    
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "X";
-            deleteBtn.classList.add("delete-preset");
-            deleteBtn.addEventListener("click", (event) => {
-                event.stopPropagation();
-                deletePreset(index);
-            });
-    
-            presetContainer.appendChild(btn);
-            presetContainer.appendChild(deleteBtn);
-            presetList.appendChild(presetContainer);
+            const div = document.createElement("div");
+            div.classList.add("preset-item");
+            div.innerHTML = `
+                <span>${preset.name}</span>
+                <button onclick="loadPreset(${index})">Load</button>
+                <button onclick="deletePreset(${index})">Delete</button>
+            `;
+            presetList.appendChild(div);
         });
     }
     
+    function stepSequencer() {
+        const step = currentStep % 16;
+        gridCells.forEach((cell, index) => {
+            cell.classList.remove("current-step");
+            if (index % 16 === step) {
+                cell.classList.add("current-step");
+                if (cell.classList.contains("active")) {
+                    playSound();
+                }
+            }
+        });
+        currentStep++;
+        interval = setTimeout(stepSequencer, 60000 / tempo.value / 4);
+    }
+
+    function playSound() {
+        if (!isMuted) {
+            visualizer.style.transform = `scale(${Math.random() * 0.5 + 1.2})`;
+            visualizer.style.opacity = Math.random() * 0.5 + 0.5;
+        }
+    }
+
+    function startPlayback() {
+        if (!isPlaying) {
+            isPlaying = true;
+            stepSequencer();
+            playButton.textContent = "Stop";
+        }
+    }
     
+    function stopPlayback() {
+        isPlaying = false;
+        clearTimeout(interval);
+        playButton.textContent = "Play";
+    }
+    
+    function toggleMute() {
+        isMuted = !isMuted;
+        muteButton.textContent = isMuted ? "Unmute" : "Mute";
+    }
+    
+    playButton.addEventListener("click", () => {
+        isPlaying ? stopPlayback() : startPlayback();
+    });
+    
+    muteButton.addEventListener("click", toggleMute);
     savePresetButton.addEventListener("click", savePreset);
     updatePresetList();
-    
-    // Mute Functionality
-    stopButton.addEventListener("click", () => {
-        isMuted = !isMuted;
-        stopButton.textContent = isMuted ? "Unmute" : "Mute";
-    });
 });
