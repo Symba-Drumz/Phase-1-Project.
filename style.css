@@ -86,7 +86,9 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 320px;
+    height: 380px;
+    margin-bottom: 45px;
+    gap: 20px;
 }
 
 .fader-group {
@@ -94,6 +96,11 @@ header {
     align-items: center;
     gap: 10px;
     height: 40px;
+}
+.fader-group label:first-child {
+    margin-right: 30px;
+     margin-left: 20px;
+     
 }
 
 .fader-group input[type="range"] {
@@ -126,6 +133,7 @@ button {
     padding: 10px;
     cursor: pointer;
     transition: background 0.2s;
+    border-radius: 5px;
 }
 
 button:hover {
