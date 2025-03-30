@@ -16,6 +16,8 @@ header {
     color: cyan;
     font-size: 1.5rem;
     border-bottom: 2px solid cyan;
+    font-family: "Zen Dots", sans-serif;
+    
 }
 
 .controls, .options, .playback-controls {
@@ -25,6 +27,7 @@ header {
     border-radius: 10px;
     width: 90%;
 }
+
 
 .sequencer {
     display: flex;
@@ -127,13 +130,15 @@ header {
 }
 
 button {
-    background-color: cyan;
+    background-color: rgb(63, 115, 235);
     color: black;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: background 0.2s;
     border-radius: 5px;
+    border-style: outset;
+    box-shadow: 0px 5px 0px #062f4a;
 }
 
 button:hover {
@@ -146,4 +151,31 @@ button:hover {
     align-items: center;
     gap: 5px;
 }
-
+input[type="text"] {
+    background: #fefdfd;
+    outline: none;
+    color: cyan;
+    border: 3px solid rgb(13, 137, 137);
+    border-radius: 5px;
+    padding: 5px;
+}
+input[type="number"] {
+    border-color: #0c2428;
+    border-radius: 5px;
+}
+#kit-selector {
+    background: #fefdfd;
+    outline: none;
+    color: rgb(14, 15, 15);
+    border: 1px solid cyan;
+    border-radius: 5px;
+    padding: 5px;
+}
+#effect-selector {
+    background: #fefdfd;
+    outline: none;
+    color: rgb(14, 15, 15);
+    border: 1px solid cyan;
+    border-radius: 5px;
+    padding: 5px;
+}
