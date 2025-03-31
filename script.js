@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const kitSelector = document.getElementById("kit-selector");
     const effectSelector = document.getElementById("effect-selector");
     const gridContainer = document.querySelector(".grid");
-    const visualizer = document.getElementById("visualizer");
+    
 
     let presets = JSON.parse(localStorage.getItem("drumPresets")) || [];
     let currentStep = 0;
@@ -119,27 +119,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         currentStep++;
-        interval = setTimeout(stepSequencer, 60000 / tempo.value / 4);
     }
 
     function playSound() {
         if (!isMuted) {
-            visualizer.style.transform = `scale(${Math.random() * 0.5 + 1.2})`;
-            visualizer.style.opacity = Math.random() * 0.5 + 0.5;
+            console.log("Playing sound"); // Placeholder for actual sound playback
         }
     }
 
     function startPlayback() {
         if (!isPlaying) {
             isPlaying = true;
-            stepSequencer();
+            currentStep = 0;
+            interval = setInterval(stepSequencer, 60000 / tempo.value / 4);
             playButton.textContent = "Stop";
         }
     }
     
     function stopPlayback() {
         isPlaying = false;
-        clearTimeout(interval);
+        clearInterval(interval);
         playButton.textContent = "Play";
     }
     
