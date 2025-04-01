@@ -1,3 +1,5 @@
+import * as Tone from 'tone';
+
 document.addEventListener("DOMContentLoaded", () => {
     const masterVolume = document.getElementById("master-volume");
     const tempo = document.getElementById("tempo");
