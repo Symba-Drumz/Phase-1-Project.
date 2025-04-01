@@ -160,10 +160,11 @@ button:hover {
 input[type="text"] {
     background: #fefdfd;
     outline: none;
-    color: cyan;
-    border: 3px solid rgb(13, 137, 137);
+    color: rgb(2, 9, 9);
+    border: 3px solid rgb(10, 10, 10);
     border-radius: 5px;
     padding: 5px;
+    caret-color: black !important;
 }
 input[type="number"] {
     border-color: #0c2428;
@@ -222,3 +223,9 @@ input[type="number"] {
     transform: translateX(-100px);
     color: cyan;
 }
+#preset-name { 
+    color: black !important;
+    caret-color: black !important;
+}   
+
+    
