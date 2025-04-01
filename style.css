@@ -92,6 +92,7 @@ header {
     background: cyan;
 }
 
+
 .faders {
     display: flex;
     flex-direction: column;
