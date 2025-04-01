@@ -121,26 +121,27 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         currentStep++;
+        interval = setTimeout(stepSequencer, 60000 / tempo.value / 4);
     }
 
     function playSound() {
         if (!isMuted) {
-            console.log("Playing sound"); // Placeholder for actual sound playback
+            visualizer.style.transform = `scale(${Math.random() * 0.5 + 1.2})`;
+            visualizer.style.opacity = Math.random() * 0.5 + 0.5;
         }
     }
 
     function startPlayback() {
         if (!isPlaying) {
             isPlaying = true;
-            currentStep = 0;
-            interval = setInterval(stepSequencer, 60000 / tempo.value / 4);
+            stepSequencer();
             playButton.textContent = "Stop";
         }
     }
     
     function stopPlayback() {
         isPlaying = false;
-        clearInterval(interval);
+        clearTimeout(interval);
         playButton.textContent = "Play";
     }
     
@@ -165,4 +166,4 @@ document.addEventListener("DOMContentLoaded", () => {
     
     generateGrid();
     updatePresetList();
-});
+});  
