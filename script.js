@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const kitSelector = document.getElementById("kit-selector");
     const effectSelector = document.getElementById("effect-selector");
     const gridContainer = document.querySelector(".grid");
-    
+    const visualizer = document.getElementById("visualizer");
 
     let presets = JSON.parse(localStorage.getItem("drumPresets")) || [];
     let currentStep = 0;
@@ -166,4 +166,4 @@ document.addEventListener("DOMContentLoaded", () => {
     
     generateGrid();
     updatePresetList();
-});  
+});
